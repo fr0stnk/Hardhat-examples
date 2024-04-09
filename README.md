@@ -22,15 +22,15 @@ npm install
 
 Compile the contracts:
 
-\\\console
+```console
 npx hardhat compile
-\\\
+```
 
 Deploy the contracts to the desired network:
 
-\\\console
+```console
 npx hardhat run scripts/deploy_hello_world.js --network <network-name>
-\\\
+```
 
 ## Scripts
 
@@ -40,9 +40,9 @@ The `scripts` directory contains JavaScript files that are used to deploy and in
 
 Run the test suite with:
 
-\\\console
+```console
 npx hardhat test
-\\\
+```
 
 ## Ignition
 
