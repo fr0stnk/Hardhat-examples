@@ -1,5 +1,3 @@
-pragma solidity ^0.8.24;
-
 contract HelloWorld {
     string private greeting;
     bool private isContractDeployed;
