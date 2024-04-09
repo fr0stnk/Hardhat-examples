@@ -75,3 +75,50 @@ Below are the commands used throughout the project's lifecycle:
 - `MultiSigExample.sol`: Facilitates a multi-signature wallet that requires multiple confirmations for transactions.
 - `MyGovernor.sol`: An example of a governance contract that interacts with a voting token for proposal voting.
 - `VotingToken.sol`: An ERC20 token that includes voting capabilities, used with the MyGovernor contract for governance.
+
+## Setting Private Keys for Hardhat Configuration
+
+To securely manage private keys in your Hardhat project, it's recommended to use environment variables rather than hardcoding them in your `hardhat.config.js` file. This approach keeps sensitive information out of your source code.
+
+### Setting up Environment Variables
+
+#### Windows
+1. Open the Start menu and search for 'Environment Variables'.
+2. Click on 'Edit the system environment variables'.
+3. In the System Properties window, click 'Environment Variables'.
+4. Click 'New' under the 'System variables' section.
+5. Enter `AURORIA_PRIVATE_KEY` and `HOLESKY_PRIVATE_KEY` as the variable names and your respective private keys as the values.
+
+#### macOS/Linux
+1. Open your terminal.
+2. Edit your shell's profile file (e.g., `~/.bash_profile`, `~/.zshrc`, etc.) with a text editor.
+3. Add the following lines to set your environment variables:
+   ```
+   export AURORIA_PRIVATE_KEY="your_auroria_private_key_here"
+   export HOLESKY_PRIVATE_KEY="your_holesky_private_key_here"
+   ```
+4. Save the file and run `source ~/.bash_profile` (or equivalent) to apply the changes.
+
+### Modifying `hardhat.config.js`
+
+In your `hardhat.config.js`, reference these environment variables as follows:
+
+```javascript
+const AURORIA_PRIVATE_KEY = process.env.AURORIA_PRIVATE_KEY;
+const HOLESKY_PRIVATE_KEY = process.env.HOLESKY_PRIVATE_KEY;
+
+module.exports = {
+  // Configuration details
+  networks: {
+    auroria: {
+      accounts: [AURORIA_PRIVATE_KEY],
+      // Other network configurations
+    },
+    holesky: {
+      accounts: [HOLESKY_PRIVATE_KEY],
+      // Other network configurations
+    },
+  },
+  // Other configurations
+};
+```
