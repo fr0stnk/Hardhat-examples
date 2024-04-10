@@ -6,9 +6,9 @@ This project demonstrates a setup using Hardhat, a development environment to co
 
 - `HelloWorld`: A simple contract that stores a greeting and allows it to be changed.
 - `Lock`: A time-locked contract that only allows withdrawals after a certain date.
-- `MultiSigExample`: A contract to demonstrate multi-signature wallet transactions.
 - `MyGovernor`: A governance contract based on OpenZeppelin's Governor contract.
 - `VotingToken`: An ERC20 token that supports voting with additional extensions.
+- `MultiSig`: A contract that enables multi-signature transaction approval for increased security and control, requiring multiple signatures from confirmed owners before executing transactions.
 
 ## Getting Started
 
@@ -72,9 +72,41 @@ Below are the commands used throughout the project's lifecycle:
 
 - `HelloWorld.sol`: Demonstrates a basic contract with a greeting variable that can be read and set.
 - `Lock.sol`: Implements a locking mechanism that restricts withdrawals to after a certain time.
-- `MultiSigExample.sol`: Facilitates a multi-signature wallet that requires multiple confirmations for transactions.
 - `MyGovernor.sol`: An example of a governance contract that interacts with a voting token for proposal voting.
 - `VotingToken.sol`: An ERC20 token that includes voting capabilities, used with the MyGovernor contract for governance.
+- `MultiSig.sol`: Facilitates a multi-signature wallet that requires multiple confirmations for transactions, enhancing security and control.
+
+### Example of Multisig contract call to Mint function of ERC20
+
+Multi-Signature (MultiSig) Wallets are integral to the Ethereum ecosystem, enhancing security and governance capabilities by requiring multiple approvals before executing any transaction. These wallets are particularly useful for managing complex operations such as executing ERC20 token functions, for example, minting new tokens, which demand a high level of security and consensus among stakeholders.
+
+#### Overview of MultiSig Wallet Operations:
+
+1. **Initiating a Transaction Proposal:** Transactions in a MultiSig typically start with an owner proposing an action through a method `submitTransaction`. For instance, to mint new ERC20 tokens, an owner would prepare and submit a transaction proposal by encoding the mint function along with its intended parameters. This stage sets the foundation for a secure and consensual operation within the blockchain framework.
+
+   ```plaintext
+   Function: submitTransaction
+   Parameters:
+   - destination address (address of the ERC20 token contract)
+   - value (typically 0 for token minting calls)
+   - data (encoded function, e.g., the mint function and its parameters)
+   ```
+
+   The transaction is then logged with a unique ID, facilitating traceability and reference in the confirmation process.
+
+2. **Confirmation by Multiple Owners:**
+   The proposal must be confirmed according to predetermined wallet configurations, typically by a minimum number of wallet owners. These owners review and approve the transaction using the `confirmTransaction` function by citing the transaction ID.
+
+   ```plaintext
+   Function: confirmTransaction
+   Parameters:
+   - transactionId (uint): ID of the transaction that requires confirmation.
+   ```
+
+   In essence, this step reinforces the security by ensuring multiple validations on the proposed action. After the required number of confirmations is reached, the transaction is automatically executed, reflecting the consensus-driven operation of MultiSig Wallets.
+
+3. **Automated Execution upon Meeting Confirmation Requirements:**
+   One of the pivotal features of MultiSigs is the automatic execution of transactions once they receive the requisite number of confirmations. This streamlined feature ensures that actions, like minting tokens, are carried out efficiently without the need for manual intervention once approval consensus is achieved.
 
 ## Setting Private Keys for Hardhat Configuration
 
